@@ -24,7 +24,6 @@ public class Main {//TODO
         Futebol futebol = new Futebol();
         Futsal futsal = new Futsal();
         System.out.println("a");
-        System.out.println("This is a test");
 
     }
 }
