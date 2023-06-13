@@ -3,6 +3,7 @@ package br.udesc.pro1.model;
 import br.udesc.pro1.model.esportes.Esporte;
 import br.udesc.pro1.model.usuarios.Administrador;
 import br.udesc.pro1.model.usuarios.Jogador;
+import br.udesc.pro1.model.usuarios.Usuario;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -15,10 +16,11 @@ public class Turma {
     private String horarioInicio;
     //    private TimeComponent horarioInicio2; //TODO descobrir como seta horário no swing
     private String horarioFim;
-    private ArrayList<DayOfWeek> diasDoJogo;
+    private String diaDeJogo;
+//    private ArrayList<DayOfWeek> diasDoJogo;
     private String endereco;
 
-    public Turma(String nomeDaTurma, Administrador administrador, Esporte esporte, String horarioInicio, String horarioFim, ArrayList<DayOfWeek> diasDoJogo, String endereco) {
+    public Turma(String nomeDaTurma, Administrador administrador, Esporte esporte, String horarioInicio, String horarioFim, String diaDeJogo, String endereco) {
         this.nomeDaTurma = nomeDaTurma;
         this.administrador = administrador;
         this.esporte = esporte;
@@ -26,7 +28,7 @@ public class Turma {
         jogadores.add(administrador);
         this.horarioInicio = horarioInicio;
         this.horarioFim = horarioFim;
-        this.diasDoJogo = diasDoJogo;
+        this.diaDeJogo = diaDeJogo;
         this.endereco = (endereco == null || endereco.equals("")) ? "A definir" : endereco;
     }
 
@@ -59,6 +61,10 @@ public class Turma {
         */
         this.jogadores = jogadores;
     }
+    
+    public void adicionarJogador(Usuario usuario) {
+        this.jogadores.add((Jogador) usuario);
+    }
 
     public String getHorarioInicio() {
         return horarioInicio;
@@ -76,14 +82,22 @@ public class Turma {
         this.horarioFim = horarioFim;
     }
 
-    public ArrayList<DayOfWeek> getDiasDoJogo() {
-        return diasDoJogo;
+//    public ArrayList<DayOfWeek> getDiasDoJogo() {
+//        return diasDoJogo;
+//    }
+//
+//    public void setDiasDoJogo(ArrayList<DayOfWeek> diasDoJogo) {
+//        this.diasDoJogo = diasDoJogo;
+//    }
+
+    public String getDiaDeJogo() {
+        return diaDeJogo;
     }
 
-    public void setDiasDoJogo(ArrayList<DayOfWeek> diasDoJogo) {
-        this.diasDoJogo = diasDoJogo;
+    public void setDiaDeJogo(String diaDeJogo) {
+        this.diaDeJogo = diaDeJogo;
     }
-
+        
     public String getEndereco() {
         return endereco;
     }
@@ -95,4 +109,23 @@ public class Turma {
     /*public void setHorarioInicio2(){
         horarioInicio2.setTime();
     }*/
+
+    public Turma(String nomeDaTurma, Administrador administrador, Esporte esporte, ArrayList<Jogador> jogadores, String horarioInicio, String horarioFim, String diaDeJogo, String endereco) {
+        this.nomeDaTurma = nomeDaTurma;
+        this.administrador = administrador;
+        this.esporte = esporte;
+        this.jogadores = jogadores;
+        this.horarioInicio = horarioInicio;
+        this.horarioFim = horarioFim;
+        this.diaDeJogo = diaDeJogo;
+        this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return "Turma{" + "nomeDaTurma=" + nomeDaTurma + ", administrador=" + administrador + ", esporte=" + esporte + ", jogadores=" + jogadores + ", horarioInicio=" + horarioInicio + ", horarioFim=" + horarioFim + ", diaDeJogo=" + diaDeJogo + ", endereco=" + endereco + '}';
+    }
+    
+    
+    
 }

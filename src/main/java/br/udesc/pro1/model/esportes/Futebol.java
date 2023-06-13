@@ -6,4 +6,9 @@ public class Futebol extends Esporte{
         super(22, 46);
     }
 
+    @Override
+    public String toString() {
+        return "Futebol{" + '}';
+    }
+    
 }
