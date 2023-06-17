@@ -2,32 +2,44 @@ package br.udesc.pro1.model;
 
 import br.udesc.pro1.model.esportes.Esporte;
 import br.udesc.pro1.model.usuarios.Administrador;
-import br.udesc.pro1.model.usuarios.Jogador;
+import br.udesc.pro1.model.usuarios.Usuario;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 
 public class Turma {
+
     private String nomeDaTurma;
     private final Administrador administrador;
     private final Esporte esporte;
-    private ArrayList<Jogador> jogadores;
-    private String horarioInicio;
-    //    private TimeComponent horarioInicio2; //TODO descobrir como seta horário no swing
-    private String horarioFim;
-    private ArrayList<DayOfWeek> diasDoJogo;
     private String endereco;
+    private String horarioInicio;
+    private String horarioFim;
+    private ArrayList<Usuario> jogadores;
+    private ArrayList<String> diasDoJogo;
 
-    public Turma(String nomeDaTurma, Administrador administrador, Esporte esporte, String horarioInicio, String horarioFim, ArrayList<DayOfWeek> diasDoJogo, String endereco) {
+//    public Turma(String nomeDaTurma, Administrador administrador, Esporte esporte, String horarioInicio, String horarioFim, ArrayList<String> diasDoJogo, String endereco) {
+//        this.nomeDaTurma = nomeDaTurma;
+//        this.administrador = administrador;
+//        this.esporte = esporte;
+//        this.jogadores = new ArrayList<>();
+//        jogadores.add(administrador);
+//        this.horarioInicio = horarioInicio;
+//        this.horarioFim = horarioFim;
+//        this.diasDoJogo = diasDoJogo;
+//
+//    }
+    public Turma(String nomeDaTurma, Administrador administrador, Esporte esporte, String horarioInicio, String horarioFim, ArrayList<String> diasDoJogo, String endereco) {
         this.nomeDaTurma = nomeDaTurma;
         this.administrador = administrador;
         this.esporte = esporte;
         this.jogadores = new ArrayList<>();
-        jogadores.add(administrador);
+        this.jogadores.add(administrador);
         this.horarioInicio = horarioInicio;
         this.horarioFim = horarioFim;
         this.diasDoJogo = diasDoJogo;
         this.endereco = (endereco == null || endereco.equals("")) ? "A definir" : endereco;
+        this.administrador.getTurmasAdministrando().add(this);
+        this.administrador.getTurmasParticipando().add(this);
     }
 
     public String getNomeDaTurma() {
@@ -46,18 +58,27 @@ public class Turma {
         return esporte;
     }
 
-    public ArrayList<Jogador> getJogadores() {
+    public ArrayList<Usuario> getJogadores() {
         return jogadores;
     }
 
-    public void setJogadores(ArrayList<Jogador> jogadores) {
-        /*
-        TODO
-           * método que seta uma *lista* de jogadores, provavelmente não vai ser utilizado
-           * desenvolver métodos não-default que adiciona/remove um Jogador
-                * conferir capacidade do Esporte antes de adicionar, retornar boolean de sucesso/falha
-        */
+    /**
+     * Método que seta uma *lista* de jogadores, não confundir com
+     * {@link br.udesc.pro1.model.esportes.Turma.adicionarJogador}
+     */
+    public void setJogadores(ArrayList<Usuario> jogadores) {
+
         this.jogadores = jogadores;
+    }
+
+    public void adicionarJogador(Usuario usuario) {
+        if (this.jogadores.size() < this.esporte.getNUMERO_DE_JOGADORES_MAXIMO()) {
+            this.jogadores.add((Usuario) usuario);
+            usuario.getTurmasParticipando().add(this);
+        } else {
+            System.out.println("Não foi possível entrar pois número máximo de jogadores na turma!");
+        }
+
     }
 
     public String getHorarioInicio() {
@@ -76,14 +97,6 @@ public class Turma {
         this.horarioFim = horarioFim;
     }
 
-    public ArrayList<DayOfWeek> getDiasDoJogo() {
-        return diasDoJogo;
-    }
-
-    public void setDiasDoJogo(ArrayList<DayOfWeek> diasDoJogo) {
-        this.diasDoJogo = diasDoJogo;
-    }
-
     public String getEndereco() {
         return endereco;
     }
@@ -95,4 +108,26 @@ public class Turma {
     /*public void setHorarioInicio2(){
         horarioInicio2.setTime();
     }*/
+    public ArrayList<String> getDiasDoJogo() {
+        return diasDoJogo;
+    }
+
+    public void setDiasDoJogo(ArrayList<String> diasDoJogo) {
+        this.diasDoJogo = diasDoJogo;
+    }
+
+    @Override
+    public String toString() {
+        return "Turma["
+                + "\nNome da turma: '" + nomeDaTurma + '\''
+                + "\nAdministrador:" + administrador
+                + "\nEsporte=" + esporte
+                + "\nJogadores=" + jogadores
+                + "\nHorário Inicio='" + horarioInicio + '\''
+                + "\nHorario Fim='" + horarioFim + '\''
+                + "\ndiaDeJogo='" + diasDoJogo + '\''
+                + "\ndiasDoJogo=" + diasDoJogo
+                + "\nendereco='" + endereco + '\''
+                + ']';
+    }
 }

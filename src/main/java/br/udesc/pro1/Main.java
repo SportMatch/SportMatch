@@ -1,29 +1,36 @@
 package br.udesc.pro1;
 
+import br.udesc.pro1.model.Turma;
 import br.udesc.pro1.model.esportes.Esporte;
 import br.udesc.pro1.model.esportes.Futebol;
 import br.udesc.pro1.model.esportes.Futsal;
+import br.udesc.pro1.model.usuarios.Administrador;
+import br.udesc.pro1.model.usuarios.Usuario;
+import br.udesc.pro1.utils.Persistencia;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
-// Press Alt+Enter with your caret at the highlighted text to see how
-// IntelliJ IDEA suggests fixing it.
-//        System.out.printf("Hello and welcome!");
+import java.util.ArrayList;
 
-// Press Shift+F10 or click the green arrow button in the gutter to run the code.
-//        for (int i = 1; i <= 5; i++) {
-
-// Press Shift+F9 to start debugging your code. We have set one breakpoint
-// for you, but you can always add more by pressing Ctrl+F8.
-//            System.out.println("i = " + i);
-//        }
 public class Main {//TODO
     public static void main(String[] args) {
-
-        Esporte esporte = new Esporte(0,0);
+        Persistencia persistencia = new Persistencia();
+        Administrador admin = new Administrador("Vitor","","");
+        Usuario jogador = new Usuario("Lucas","","");
+        Usuario jogador2 = new Usuario("Fernando","","");
+//        Esporte esporte = new Esporte(0,0);
         Futebol futebol = new Futebol();
-        Futsal futsal = new Futsal();
-        System.out.println("a");
+//        Futsal futsal = new Futsal();
+        ArrayList<String> diasDoJogo = new ArrayList<String>();
+        diasDoJogo.add("Segunda");
+        diasDoJogo.add("Terça");
+        
+        Turma turma = new Turma("java swing", admin, futebol, "00:00", "02:00", diasDoJogo, null);
+        turma.adicionarJogador(jogador);
+        System.out.println(turma);
+        turma.adicionarJogador(jogador2);
+        persistencia.gravarTurma(turma);
+
+        TelaLogin telaLogin = new TelaLogin();
+        telaLogin.setVisible(true);
 
     }
 }
