@@ -1,11 +1,22 @@
 package br.udesc.pro1.model.usuarios;
 
-public class Administrador extends Jogador {
-    //TODO
+import br.udesc.pro1.model.Turma;
 
-    public Administrador(String nome) {
-        super(nome);
+import java.util.ArrayList;
+
+public class Administrador extends Usuario {
+    private ArrayList<Turma> turmasAdministrando;
+
+    public Administrador(String nome, String telefone, String email) {
+        super(nome, telefone, email);
+        this.turmasAdministrando = new ArrayList<>();
     }
-    //TODO
-    
+
+    public ArrayList<Turma> getTurmasAdministrando() {
+        return turmasAdministrando;
+    }
+
+    public void setTurmasAdministrando(ArrayList<Turma> turmasAdministrando) {
+        this.turmasAdministrando = turmasAdministrando;
+    }
 }

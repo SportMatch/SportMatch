@@ -1,37 +1,46 @@
 package br.udesc.pro1.model.usuarios;
 
+import br.udesc.pro1.model.Turma;
+
+import java.util.ArrayList;
+
 public class Usuario {
-    protected static int id = 0;
     protected String nome;
+    protected  String telefone;
+    protected  String email;
+    protected  ArrayList<Turma> turmasParticipando;
 
-    public Usuario(String nome) {
-        this.id++;
+//    protected String senha;
+
+    public Usuario(String nome, String telefone, String email) {
         this.nome = nome;
-    }
-    
-    
-    //TODO
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.telefone = telefone;
+        this.email = email;
+        this.turmasParticipando = new ArrayList<>();
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getTelefone() {
+        return telefone;
+    }
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public ArrayList<Turma> getTurmasParticipando() {
+        return turmasParticipando;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "nome=" + nome + '}';
+        return "Usuario{" + "nome=" + nome + ", telefone=" + telefone + ", email=" + email + '}';
     }
-    
-    
+
 }

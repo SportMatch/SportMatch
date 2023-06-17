@@ -1,0 +1,10 @@
+Turma[
+Nome da turma: 'java swing'
+Administrador:br.udesc.pro1.model.usuarios.Administrador@5f2050f6
+Esporte=Futebol{}
+Jogadores=[br.udesc.pro1.model.usuarios.Administrador@5f2050f6, br.udesc.pro1.model.usuarios.Usuario@3b81a1bc, br.udesc.pro1.model.usuarios.Usuario@4ac4417]
+Horário Inicio='00:00'
+Horario Fim='02:00'
+diaDeJogo='[Segunda, Terça]'
+diasDoJogo=[Segunda, Terça]
+endereco='A definir']
