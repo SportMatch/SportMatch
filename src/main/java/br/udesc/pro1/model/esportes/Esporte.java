@@ -14,10 +14,12 @@ package br.udesc.pro1.model.esportes;
 public class Esporte {
     protected int NUMERO_DE_JOGADORES_EM_CAMPO;
     protected int NUMERO_DE_JOGADORES_MAXIMO;
+    protected String nome;
 
-    public Esporte(int NUMERO_DE_JOGADORES_EM_CAMPO, int NUMERO_DE_JOGADORES_MAXIMO) {
+    public Esporte(int NUMERO_DE_JOGADORES_EM_CAMPO, int NUMERO_DE_JOGADORES_MAXIMO, String nome) {
         this.NUMERO_DE_JOGADORES_EM_CAMPO = NUMERO_DE_JOGADORES_EM_CAMPO;
         this.NUMERO_DE_JOGADORES_MAXIMO = NUMERO_DE_JOGADORES_MAXIMO;
+        this.nome = nome;
     }
 
     public int getNUMERO_DE_JOGADORES_EM_CAMPO() {
@@ -28,4 +30,8 @@ public class Esporte {
         return NUMERO_DE_JOGADORES_MAXIMO;
     }
 
+    public String getNome() {
+        return nome;
+    }
+    
 }
