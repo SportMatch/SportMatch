@@ -3,22 +3,28 @@ package br.udesc.pro1.model.usuarios;
 import br.udesc.pro1.model.Turma;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Usuario {
+
     protected String nome;
-    protected  String telefone;
-    protected  String email;
-    protected  ArrayList<Turma> turmasParticipando;
-
-//    protected String senha;
-
-    public Usuario(String nome, String telefone, String email) {
+    protected String telefone;
+    protected String email;
+    protected String senha;
+    protected ArrayList<Turma> turmasParticipando;
+    
+    public Usuario(){
+        
+    }
+    
+    public Usuario(String nome, String telefone, String email, String senha) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
+        this.senha = senha;
         this.turmasParticipando = new ArrayList<>();
     }
-
+    
     public String getNome() {
         return nome;
     }
@@ -26,6 +32,7 @@ public class Usuario {
     public String getTelefone() {
         return telefone;
     }
+
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
@@ -38,9 +45,25 @@ public class Usuario {
         return turmasParticipando;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+    
     @Override
     public String toString() {
         return "Usuario{" + "nome=" + nome + ", telefone=" + telefone + ", email=" + email + '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(nome, usuario.nome) && Objects.equals(telefone, usuario.telefone) && Objects.equals(email, usuario.email) && Objects.equals(senha, usuario.senha);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, telefone, email, senha);
+    }
 }

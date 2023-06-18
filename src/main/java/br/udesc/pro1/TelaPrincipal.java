@@ -4,17 +4,35 @@
  */
 package br.udesc.pro1;
 
+import br.udesc.pro1.model.Turma;
+import br.udesc.pro1.model.esportes.Futevolei;
+import br.udesc.pro1.model.esportes.Volei;
+import br.udesc.pro1.model.usuarios.Administrador;
+import br.udesc.pro1.model.usuarios.Usuario;
+import br.udesc.pro1.utils.Persistencia;
+import java.util.ArrayList;
+
 /**
  *
  * @author vitor
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-
+    
+    public static Persistencia persistencia;
+    public static Usuario usuarioLogado;
+    public static ArrayList<Turma> turmas;
+    
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
+        persistencia = new Persistencia();
+        usuarioLogado = new Usuario();
+        turmas = gerarTurmas();
+        gerarTurmas();
         initComponents();
+        TelaLogin telaLogin = new TelaLogin(persistencia, usuarioLogado, turmas);
+        telaLogin.setVisible(true);
     }
 
     /**
@@ -26,46 +44,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(jButton1)
-                .addContainerGap(169, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(jButton1)
-                .addContainerGap(166, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        this.add(this)
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -73,7 +71,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -96,8 +94,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+    //Simula persistência de turmas
+    private ArrayList<Turma> gerarTurmas() {
+        ArrayList<String> escala1 = new ArrayList<String>();
+        escala1.add("Seg");
+        escala1.add("Qua");
+        ArrayList<String> escala2 = new ArrayList<String>();
+        escala2.add("Ter");
+        escala2.add("Qui");
+        Turma turma1 = new Turma("Futevôlei dos Compadres", new Administrador("Mattheus", "4733571234", "mattheus@udesc.br", "1234"), new Futevolei(), "22h", "0h", escala1, null);
+        Turma turma2 = new Turma("Vôlei da Marília", new Administrador("Marília", "4733575678", "marilia@udesc.br", "5678"), new Volei(), "22h", "0h", escala2, "Ginásio do IFC");
+        ArrayList<Turma> turmas = new ArrayList<>();
+        turmas.add(turma1);
+        turmas.add(turma2);
+        return turmas;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

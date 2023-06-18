@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class Administrador extends Usuario {
     private ArrayList<Turma> turmasAdministrando;
 
-    public Administrador(String nome, String telefone, String email) {
-        super(nome, telefone, email);
+    public Administrador(String nome, String telefone, String email, String senha) {
+        super(nome, telefone, email, senha);
         this.turmasAdministrando = new ArrayList<>();
     }
 
