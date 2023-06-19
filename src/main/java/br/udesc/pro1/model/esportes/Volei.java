@@ -1,9 +1,13 @@
 package br.udesc.pro1.model.esportes;
 
 public class Volei extends Esporte{
-    public Volei() { //TODO pesquisar nº jogadores
+    public Volei() {
         super(12, 24, "Vôlei");
     }
 
-    //TODO
+    @Override
+    public String toString() {
+        return "Vôlei";
+    }
+    
 }

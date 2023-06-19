@@ -11,27 +11,36 @@ package br.udesc.pro1.model.esportes;
  * @see Volei
  */
 
-public class Esporte {
-    protected int NUMERO_DE_JOGADORES_EM_CAMPO;
-    protected int NUMERO_DE_JOGADORES_MAXIMO;
+public abstract class Esporte {
+    protected Integer NUMERO_DE_JOGADORES_EM_CAMPO;
+    protected Integer NUMERO_DE_JOGADORES_MAXIMO;
     protected String nome;
 
-    public Esporte(int NUMERO_DE_JOGADORES_EM_CAMPO, int NUMERO_DE_JOGADORES_MAXIMO, String nome) {
+    public Esporte(Integer NUMERO_DE_JOGADORES_EM_CAMPO, Integer NUMERO_DE_JOGADORES_MAXIMO, String nome) {
         this.NUMERO_DE_JOGADORES_EM_CAMPO = NUMERO_DE_JOGADORES_EM_CAMPO;
         this.NUMERO_DE_JOGADORES_MAXIMO = NUMERO_DE_JOGADORES_MAXIMO;
         this.nome = nome;
     }
+    
+    public Esporte(){
+        
+    }
 
-    public int getNUMERO_DE_JOGADORES_EM_CAMPO() {
+    public Integer getNUMERO_DE_JOGADORES_EM_CAMPO() {
         return NUMERO_DE_JOGADORES_EM_CAMPO;
     }
 
-    public int getNUMERO_DE_JOGADORES_MAXIMO() {
+    public Integer getNUMERO_DE_JOGADORES_MAXIMO() {
         return NUMERO_DE_JOGADORES_MAXIMO;
     }
 
     public String getNome() {
         return nome;
+    }
+
+    @Override
+    public String toString() {
+        return "Esporte{" + "NUMERO_DE_JOGADORES_EM_CAMPO=" + NUMERO_DE_JOGADORES_EM_CAMPO + ", NUMERO_DE_JOGADORES_MAXIMO=" + NUMERO_DE_JOGADORES_MAXIMO + ", nome=" + nome + '}';
     }
     
 }

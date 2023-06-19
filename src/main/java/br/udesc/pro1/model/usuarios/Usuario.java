@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Usuario {
-
+    
+    public static int contadorDeUsuarios = 0;
     protected String nome;
     protected String telefone;
     protected String email;
@@ -14,7 +15,6 @@ public class Usuario {
     protected ArrayList<Turma> turmasParticipando;
     
     public Usuario(){
-        
     }
     
     public Usuario(String nome, String telefone, String email, String senha) {
@@ -23,6 +23,16 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
         this.turmasParticipando = new ArrayList<>();
+        contadorDeUsuarios = contadorDeUsuarios++;
+    }
+    
+    public Usuario(Usuario usuario) {
+        this.nome = usuario.nome;
+        this.telefone = usuario.telefone;
+        this.email = usuario.email;
+        this.senha = usuario.senha;
+        this.turmasParticipando = usuario.turmasParticipando;
+        contadorDeUsuarios = contadorDeUsuarios++;
     }
     
     public String getNome() {
@@ -36,7 +46,7 @@ public class Usuario {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
+    
     public String getEmail() {
         return email;
     }
@@ -51,7 +61,7 @@ public class Usuario {
     
     @Override
     public String toString() {
-        return "Usuario{" + "nome=" + nome + ", telefone=" + telefone + ", email=" + email + '}';
+        return nome + " - Tel: " + telefone;
     }
 
     @Override
