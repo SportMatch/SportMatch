@@ -11,6 +11,11 @@ public class Administrador extends Usuario {
         super(nome, telefone, email, senha);
         this.turmasAdministrando = new ArrayList<>();
     }
+    
+    public Administrador(Usuario usuario){
+        super(usuario);
+        this.turmasAdministrando = new ArrayList<>();
+    }
 
     public ArrayList<Turma> getTurmasAdministrando() {
         return turmasAdministrando;

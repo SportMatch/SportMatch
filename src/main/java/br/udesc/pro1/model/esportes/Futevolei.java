@@ -5,6 +5,10 @@ public class Futevolei extends Esporte{
         super(4,4, "Futevôlei");
     }
 
-    //TODO
+    @Override
+    public String toString() {
+        return "Futevôlei";
+    }
+
 
 }

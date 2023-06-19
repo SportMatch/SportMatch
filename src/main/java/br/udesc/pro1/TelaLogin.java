@@ -10,10 +10,6 @@ import br.udesc.pro1.utils.Persistencia;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
-/**
- *
- * @author vitor
- */
 public class TelaLogin extends javax.swing.JFrame {
 
     public static Persistencia persistencia;
@@ -51,6 +47,7 @@ public class TelaLogin extends javax.swing.JFrame {
         lbSenha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SportMatch");
         setPreferredSize(new java.awt.Dimension(411, 823));
         setResizable(false);
         setSize(new java.awt.Dimension(411, 823));
@@ -151,15 +148,15 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfNomePessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomePessoaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_tfNomePessoaActionPerformed
 
     private void tfTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTelefoneActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_tfTelefoneActionPerformed
 
     private void tfEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEmailActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_tfEmailActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
@@ -175,6 +172,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         this.setVisible(false);
         telaListaTurmas.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private boolean camposVazios(){
@@ -194,7 +192,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     private void tfSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSenhaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_tfSenhaActionPerformed
 
     /**

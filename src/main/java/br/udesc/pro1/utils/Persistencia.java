@@ -13,30 +13,6 @@ import static java.lang.System.out;
 
 public class Persistencia {
 
-    public void gravarTurma(Turma turma) {
-        try (PrintWriter arquivo = new PrintWriter(new FileWriter("turmas.txt", true))) {
-            arquivo.print(turma);
-            arquivo.println();
-        } catch (Exception e) {
-            out.println(e);
-        }
-    }
-
-    public void lerTurma() {
-        try (Scanner arquivo = new Scanner(new FileReader("turmas.txt"))) {
-            while (arquivo.hasNext()) {
-                String primeiroNome = arquivo.next();
-                String ultimoNome = arquivo.next();
-                int idade = arquivo.nextInt();
-                out.println(primeiroNome + " " + ultimoNome + " tem "
-                        + idade + " anos de idade.");
-
-            }
-        } catch (Exception e) {
-            out.println(e);
-        }
-    }
-
     public void gravarUsuario(Usuario usuario) {
         try (PrintWriter arquivo = new PrintWriter(new FileWriter("usuarios.txt", true))) {
             arquivo.print(usuario.getNome() + " ");

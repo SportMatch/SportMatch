@@ -9,37 +9,34 @@ import java.util.ArrayList;
 public class Turma {
 
     private String nomeDaTurma;
-    private final Administrador administrador;
-    private final Esporte esporte;
+    private final Administrador ADMINISTRADOR;
+    private Esporte esporte;
     private String endereco;
     private String horarioInicio;
     private String horarioFim;
     private ArrayList<Usuario> jogadores;
     private ArrayList<String> diasDoJogo;
-
-//    public Turma(String nomeDaTurma, Administrador administrador, Esporte esporte, String horarioInicio, String horarioFim, ArrayList<String> diasDoJogo, String endereco) {
-//        this.nomeDaTurma = nomeDaTurma;
-//        this.administrador = administrador;
-//        this.esporte = esporte;
-//        this.jogadores = new ArrayList<>();
-//        jogadores.add(administrador);
-//        this.horarioInicio = horarioInicio;
-//        this.horarioFim = horarioFim;
-//        this.diasDoJogo = diasDoJogo;
-//
-//    }
-    public Turma(String nomeDaTurma, Administrador administrador, Esporte esporte, String horarioInicio, String horarioFim, ArrayList<String> diasDoJogo, String endereco) {
+    
+    
+    public Turma(String nomeDaTurma, Administrador ADMINISTRADOR, Esporte esporte, String horarioInicio, String horarioFim, ArrayList<String> diasDoJogo, String endereco) {
         this.nomeDaTurma = nomeDaTurma;
-        this.administrador = administrador;
+        this.ADMINISTRADOR = ADMINISTRADOR;
         this.esporte = esporte;
         this.jogadores = new ArrayList<>();
-        this.jogadores.add(administrador);
+        this.jogadores.add(ADMINISTRADOR);
         this.horarioInicio = horarioInicio;
         this.horarioFim = horarioFim;
         this.diasDoJogo = diasDoJogo;
         this.endereco = (endereco == null || endereco.equals("")) ? "A definir" : endereco;
-        this.administrador.getTurmasAdministrando().add(this);
-        this.administrador.getTurmasParticipando().add(this);
+        this.ADMINISTRADOR.getTurmasAdministrando().add(this);
+        this.ADMINISTRADOR.getTurmasParticipando().add(this);
+    }
+    
+    public Turma(Administrador ADMINISTRADOR){
+        this.ADMINISTRADOR = ADMINISTRADOR;
+        this.jogadores = new ArrayList<>();
+        this.jogadores.add(ADMINISTRADOR);
+        this.diasDoJogo = new ArrayList<>();
     }
 
     public String getNomeDaTurma() {
@@ -50,10 +47,9 @@ public class Turma {
         this.nomeDaTurma = nomeDaTurma;
     }
 
-    public Administrador getAdministrador() {
-        return administrador;
+    public Administrador getADMINISTRADOR() {
+        return ADMINISTRADOR;
     }
-
     public Esporte getEsporte() {
         return esporte;
     }
@@ -62,14 +58,6 @@ public class Turma {
         return jogadores;
     }
 
-    /**
-     * Método que seta uma *lista* de jogadores, não confundir com
-     * {@link br.udesc.pro1.model.esportes.Turma.adicionarJogador}
-     */
-    public void setJogadores(ArrayList<Usuario> jogadores) {
-
-        this.jogadores = jogadores;
-    }
 
     public void adicionarJogador(Usuario usuario) {
         if (this.jogadores.size() < this.esporte.getNUMERO_DE_JOGADORES_MAXIMO()) {
@@ -80,7 +68,7 @@ public class Turma {
         }
 
     }
-
+    
     public String getHorarioInicio() {
         return horarioInicio;
     }
@@ -105,9 +93,6 @@ public class Turma {
         this.endereco = endereco;
     }
 
-    /*public void setHorarioInicio2(){
-        horarioInicio2.setTime();
-    }*/
     public ArrayList<String> getDiasDoJogo() {
         return diasDoJogo;
     }
@@ -115,19 +100,17 @@ public class Turma {
     public void setDiasDoJogo(ArrayList<String> diasDoJogo) {
         this.diasDoJogo = diasDoJogo;
     }
+    
+    public void adicionarDia(String dia){
+        if(!diasDoJogo.contains(dia)) diasDoJogo.add(dia);
+    }
+    
+    public void removerDia(String dia){
+        if(diasDoJogo.contains(dia)) diasDoJogo.remove(dia);
+    }
 
     @Override
-    public String toString() {
-        return "Turma["
-                + "\nNome da turma: '" + nomeDaTurma + '\''
-                + "\nAdministrador:" + administrador
-                + "\nEsporte=" + esporte
-                + "\nJogadores=" + jogadores
-                + "\nHorário Inicio='" + horarioInicio + '\''
-                + "\nHorario Fim='" + horarioFim + '\''
-                + "\ndiaDeJogo='" + diasDoJogo + '\''
-                + "\ndiasDoJogo=" + diasDoJogo
-                + "\nendereco='" + endereco + '\''
-                + ']';
+    public String toString(){
+        return (esporte + " - " + nomeDaTurma);
     }
 }

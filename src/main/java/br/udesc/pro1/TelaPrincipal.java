@@ -12,10 +12,6 @@ import br.udesc.pro1.model.usuarios.Usuario;
 import br.udesc.pro1.utils.Persistencia;
 import java.util.ArrayList;
 
-/**
- *
- * @author vitor
- */
 public class TelaPrincipal extends javax.swing.JFrame {
     
     public static Persistencia persistencia;
@@ -104,7 +100,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         escala2.add("Ter");
         escala2.add("Qui");
         Turma turma1 = new Turma("Futevôlei dos Compadres", new Administrador("Mattheus", "4733571234", "mattheus@udesc.br", "1234"), new Futevolei(), "22h", "0h", escala1, null);
-        Turma turma2 = new Turma("Vôlei da Marília", new Administrador("Marília", "4733575678", "marilia@udesc.br", "5678"), new Volei(), "22h", "0h", escala2, "Ginásio do IFC");
+        Turma turma2 = new Turma("Vôlei da Marília", new Administrador("Marília", "4733575678", "marilia@udesc.br", "5678"), new Volei(), "22h30", "0h30", escala2, "Ginásio do IFC");
         ArrayList<Turma> turmas = new ArrayList<>();
         turmas.add(turma1);
         turmas.add(turma2);

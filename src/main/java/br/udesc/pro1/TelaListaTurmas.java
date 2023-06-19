@@ -9,6 +9,7 @@ import br.udesc.pro1.model.usuarios.Usuario;
 import br.udesc.pro1.utils.Persistencia;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,14 +28,9 @@ public class TelaListaTurmas extends javax.swing.JFrame {
         TelaListaTurmas.persistencia = persistencia;
         TelaListaTurmas.usuarioLogado = usuarioLogado;
         TelaListaTurmas.turmas = turmas;
+        
         initComponents();
-        // {Estou setando estáticamente para a turma 1 como exemplo - temos que descobrir como fazer isso recursivamente para cada turma da lista
-        lbTurma.setText(turmas.get(0).getNomeDaTurma());
-        lbAdmin.setText(turmas.get(0).getAdministrador().getNome());
-        lbEsporteEscolhido.setText(turmas.get(0).getEsporte().getNome());
-        lbHorario.setText(turmas.get(0).getHorarioInicio() + " / " + turmas.get(0).getHorarioFim());
-        lbJogadores.setText(turmas.get(0).getJogadores().size() + " / " + turmas.get(0).getEsporte().getNUMERO_DE_JOGADORES_MAXIMO());
-        // Estou setando estáticamente para a turma 1 como exemplo - temos que descobrir como fazer isso recursivamente para cada turma da lista}
+        inicializarCbTurmas();
     }
 
     /**
@@ -49,6 +45,7 @@ public class TelaListaTurmas extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         btnCadastrarTurma = new javax.swing.JButton();
         lbEncontreSuaTurma = new javax.swing.JLabel();
+        cbTurmas = new javax.swing.JComboBox<>();
         scrPnListaTurmas = new javax.swing.JScrollPane();
         pnListaTurmas = new javax.swing.JPanel();
         pnTurma = new javax.swing.JPanel();
@@ -59,8 +56,18 @@ public class TelaListaTurmas extends javax.swing.JFrame {
         lbJogadores = new javax.swing.JLabel();
         lbTurma = new javax.swing.JLabel();
         lbHorario = new javax.swing.JLabel();
+        lbPor1 = new javax.swing.JLabel();
+        scrPnJogadores = new javax.swing.JScrollPane();
+        tfJogadores = new javax.swing.JTextArea();
+        lbEndereco = new javax.swing.JLabel();
+        tfEndereco = new javax.swing.JLabel();
+        lbDias = new javax.swing.JLabel();
+        tfDias = new javax.swing.JLabel();
+        btnEntrarNaTurma = new javax.swing.JButton();
+        btnUsuarios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SportMatch - Lista de turmas");
         setMinimumSize(new java.awt.Dimension(411, 823));
         setResizable(false);
         setSize(new java.awt.Dimension(411, 823));
@@ -85,7 +92,15 @@ public class TelaListaTurmas extends javax.swing.JFrame {
         lbEncontreSuaTurma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbEncontreSuaTurma.setText("Encontre sua turma!");
 
+        cbTurmas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbTurmas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTurmasActionPerformed(evt);
+            }
+        });
+
         scrPnListaTurmas.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrPnListaTurmas.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         scrPnListaTurmas.setPreferredSize(new java.awt.Dimension(399, 596));
 
         lbEsporteEscolhido.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -109,11 +124,50 @@ public class TelaListaTurmas extends javax.swing.JFrame {
         lbHorario.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         lbHorario.setText("Inicio / Fim");
 
+        lbPor1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        lbPor1.setText("Jogadores:");
+
+        tfJogadores.setEditable(false);
+        tfJogadores.setColumns(20);
+        tfJogadores.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tfJogadores.setLineWrap(true);
+        tfJogadores.setRows(46);
+        tfJogadores.setBorder(null);
+        scrPnJogadores.setViewportView(tfJogadores);
+
+        lbEndereco.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        lbEndereco.setText("Onde:");
+
+        tfEndereco.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        tfEndereco.setText("Rua dos Bobos, nº 0");
+
+        lbDias.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        lbDias.setText("Quando:");
+
+        tfDias.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        tfDias.setText("Dias");
+
         javax.swing.GroupLayout pnTurmaLayout = new javax.swing.GroupLayout(pnTurma);
         pnTurma.setLayout(pnTurmaLayout);
         pnTurmaLayout.setHorizontalGroup(
             pnTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGroup(pnTurmaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrPnJogadores, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnTurmaLayout.createSequentialGroup()
+                        .addComponent(lbPor1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbJogadores))
+                    .addGroup(pnTurmaLayout.createSequentialGroup()
+                        .addComponent(lbEndereco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfEndereco))
+                    .addGroup(pnTurmaLayout.createSequentialGroup()
+                        .addComponent(lbDias)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfDias)))
+                .addContainerGap(15, Short.MAX_VALUE))
             .addGroup(pnTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnTurmaLayout.createSequentialGroup()
                     .addContainerGap()
@@ -127,17 +181,29 @@ public class TelaListaTurmas extends javax.swing.JFrame {
                                     .addComponent(lbAdmin))
                                 .addComponent(lbHorario))
                             .addGap(25, 25, 25)
-                            .addGroup(pnTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbJogadores)
-                                .addGroup(pnTurmaLayout.createSequentialGroup()
-                                    .addComponent(lbEsporte)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(lbEsporteEscolhido)))))
+                            .addComponent(lbEsporte)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lbEsporteEscolhido)))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         pnTurmaLayout.setVerticalGroup(
             pnTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 102, Short.MAX_VALUE)
+            .addGroup(pnTurmaLayout.createSequentialGroup()
+                .addContainerGap(103, Short.MAX_VALUE)
+                .addGroup(pnTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbEndereco)
+                    .addComponent(tfEndereco))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbDias)
+                    .addComponent(tfDias))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbJogadores)
+                    .addComponent(lbPor1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrPnJogadores, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(pnTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnTurmaLayout.createSequentialGroup()
                     .addGap(4, 4, 4)
@@ -149,10 +215,8 @@ public class TelaListaTurmas extends javax.swing.JFrame {
                         .addComponent(lbEsporte)
                         .addComponent(lbEsporteEscolhido))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(pnTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbHorario)
-                        .addComponent(lbJogadores))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lbHorario)
+                    .addContainerGap(407, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout pnListaTurmasLayout = new javax.swing.GroupLayout(pnListaTurmas);
@@ -161,47 +225,78 @@ public class TelaListaTurmas extends javax.swing.JFrame {
             pnListaTurmasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnListaTurmasLayout.createSequentialGroup()
                 .addComponent(pnTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 310, Short.MAX_VALUE))
+                .addGap(0, 366, Short.MAX_VALUE))
         );
         pnListaTurmasLayout.setVerticalGroup(
             pnListaTurmasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnListaTurmasLayout.createSequentialGroup()
                 .addComponent(pnTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 538, Short.MAX_VALUE))
+                .addGap(0, 137, Short.MAX_VALUE))
         );
 
         scrPnListaTurmas.setViewportView(pnListaTurmas);
+
+        btnEntrarNaTurma.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnEntrarNaTurma.setText("Entrar na turma");
+        btnEntrarNaTurma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrarNaTurmaActionPerformed(evt);
+            }
+        });
+
+        btnUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnUsuarios.setText("Usuários");
+        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuariosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbEncontreSuaTurma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrPnListaTurmas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnLogout)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbEncontreSuaTurma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(scrPnListaTurmas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnUsuarios)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLogout))
+                            .addComponent(cbTurmas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(95, 95, 95)
+                                .addComponent(btnEntrarNaTurma))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(103, 103, 103)
+                                .addComponent(btnCadastrarTurma)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCadastrarTurma)
-                .addGap(82, 82, 82))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnCadastrarTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addComponent(lbEncontreSuaTurma)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrPnListaTurmas, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrPnListaTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEntrarNaTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pack();
@@ -212,12 +307,80 @@ public class TelaListaTurmas extends javax.swing.JFrame {
         this.setVisible(false);
         TelaLogin telaLogin = new TelaLogin(persistencia, usuarioLogado, turmas);
         telaLogin.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnCadastrarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarTurmaActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        TelaNovaTurma telaNovaTurma = new TelaNovaTurma(persistencia, usuarioLogado, turmas);
+        telaNovaTurma.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCadastrarTurmaActionPerformed
 
+    private void cbTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTurmasActionPerformed
+        lbTurma.setText(((Turma)cbTurmas.getSelectedItem()).getNomeDaTurma());
+        lbAdmin.setText(((Turma)cbTurmas.getSelectedItem()).getADMINISTRADOR().getNome());
+        lbEsporteEscolhido.setText(((Turma)cbTurmas.getSelectedItem()).getEsporte().toString());
+        String horaInicio = ((Turma)cbTurmas.getSelectedItem()).getHorarioInicio();
+        String horaFim = ((Turma)cbTurmas.getSelectedItem()).getHorarioFim();
+        lbHorario.setText(horaInicio + " / " + horaFim);
+        ArrayList<String> dias = ((Turma)cbTurmas.getSelectedItem()).getDiasDoJogo();
+        String diasString = "";
+        for(String dia : dias){
+            diasString +=  dia + " ";
+        }
+        tfDias.setText(diasString);
+        tfEndereco.setText(((Turma)cbTurmas.getSelectedItem()).getEndereco());
+        Integer numParticipantes = ((Turma)cbTurmas.getSelectedItem()).getJogadores().size();
+        Integer numMaximo = ((Turma)cbTurmas.getSelectedItem()).getEsporte().getNUMERO_DE_JOGADORES_MAXIMO();
+        lbJogadores.setText(numParticipantes + " / " + numMaximo);
+        ArrayList<Usuario> participantes = ((Turma)cbTurmas.getSelectedItem()).getJogadores();
+        String participantesString = "";
+        for(Usuario usuario : participantes){
+            participantesString += usuario + "\n";
+        }
+        tfJogadores.setText(participantesString);
+        if(numParticipantes < numMaximo){
+            btnEntrarNaTurma.setEnabled(true);
+        } else {
+            btnEntrarNaTurma.setEnabled(false);
+        }
+    }//GEN-LAST:event_cbTurmasActionPerformed
+
+    private void btnEntrarNaTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarNaTurmaActionPerformed
+        if(verificarSeJaEntrour()){
+            exibirMensagem("Você já está cadastrado nesta turma!");
+            return;
+        }
+        Integer indiceTurma = cbTurmas.getSelectedIndex();
+        turmas.get(indiceTurma).adicionarJogador(usuarioLogado);
+        exibirMensagem("Você se cadastrou na turma " + ((Turma)cbTurmas.getSelectedItem()).getNomeDaTurma() + "!");
+        this.setVisible(false);
+        TelaListaTurmas telaListaTurmas = new TelaListaTurmas(persistencia, usuarioLogado, turmas);
+        telaListaTurmas.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEntrarNaTurmaActionPerformed
+
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
+        ArrayList<Usuario> usuarios = persistencia.getUsuarios();
+        String mensagem = "";
+        for(Usuario usuario : usuarios){
+            mensagem += usuario + " - Email: " + usuario.getEmail() + "\n";
+        }
+        exibirMensagem(mensagem);
+    }//GEN-LAST:event_btnUsuariosActionPerformed
+    
+    private void inicializarCbTurmas(){
+        cbTurmas.removeAllItems();
+        ArrayList<Turma> turmasCb = this.turmas;
+        for(Turma turma : turmas){
+            cbTurmas.addItem(turma);
+        }
+    }
+    
+    public void exibirMensagem(String msg){
+        JOptionPane.showMessageDialog(null, msg);
+    }
     /**
      * @param args the command line arguments
      */
@@ -255,17 +418,32 @@ public class TelaListaTurmas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarTurma;
+    private javax.swing.JButton btnEntrarNaTurma;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnUsuarios;
+    private javax.swing.JComboBox<Turma> cbTurmas;
     private javax.swing.JLabel lbAdmin;
+    private javax.swing.JLabel lbDias;
     private javax.swing.JLabel lbEncontreSuaTurma;
+    private javax.swing.JLabel lbEndereco;
     private javax.swing.JLabel lbEsporte;
     private javax.swing.JLabel lbEsporteEscolhido;
     private javax.swing.JLabel lbHorario;
     private javax.swing.JLabel lbJogadores;
     private javax.swing.JLabel lbPor;
+    private javax.swing.JLabel lbPor1;
     private javax.swing.JLabel lbTurma;
     private javax.swing.JPanel pnListaTurmas;
     private javax.swing.JPanel pnTurma;
+    private javax.swing.JScrollPane scrPnJogadores;
     private javax.swing.JScrollPane scrPnListaTurmas;
+    private javax.swing.JLabel tfDias;
+    private javax.swing.JLabel tfEndereco;
+    private javax.swing.JTextArea tfJogadores;
     // End of variables declaration//GEN-END:variables
+
+    private boolean verificarSeJaEntrour() {
+        Turma turmaSelecionada = (Turma)cbTurmas.getSelectedItem();
+        return turmaSelecionada.getJogadores().contains(usuarioLogado);
+    }
 }

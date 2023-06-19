@@ -10,28 +10,15 @@ import br.udesc.pro1.utils.Persistencia;
 
 import java.util.ArrayList;
 
-public class Main {//TODO
+/**
+ * 
+ * @author fercristen
+ * @author gehrkev
+ * @author lucasfj004
+ */
 
+public class Main {
     public static void main(String[] args) {
-//        Persistencia persistencia = new Persistencia();
-//        Usuario usuarioLogado = new Usuario();
-//        Administrador admin = new Administrador("Vitor","","");
-//        Usuario jogador = new Usuario("Lucas","","");
-//        Usuario jogador2 = new Usuario("Fernando","","");
-//        Futebol futebol = new Futebol();
-//        ArrayList<String> diasDoJogo = new ArrayList<String>();
-//        diasDoJogo.add("Segunda");
-//        diasDoJogo.add("Terça");
-//        
-//        Turma turma = new Turma("java swing", admin, futebol, "00:00", "02:00", diasDoJogo, null);
-//        turma.adicionarJogador(jogador);
-//        System.out.println(turma);
-//        turma.adicionarJogador(jogador2);
-//        persistencia.gravarTurma(turma);
-//        persistencia.lerUsuarios();
         TelaPrincipal telaPrincipal = new TelaPrincipal();
-//        telaPrincipal.setVisible(true);
-
-
     }
 }
